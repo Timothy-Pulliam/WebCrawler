@@ -5,8 +5,8 @@ import MySQLdb
 from bs4 import BeautifulSoup
 
 # Setup the database connection.
-url = "http://www.google.com"
-table_name = "google"
+url = input("Enter a URL for scraping links\n")
+table_name = input("Enter the table name\n")
 create_database_sql = "CREATE DATABASE IF NOT EXISTS crawler CHARACTER SET utf8;"
 create_table_sql = "CREATE TABLE IF NOT EXISTS crawler.%s (\
                     url_id int NOT NULL AUTO_INCREMENT,\
@@ -14,7 +14,7 @@ create_table_sql = "CREATE TABLE IF NOT EXISTS crawler.%s (\
                     url varchar(200),\
                     PRIMARY KEY (url_id));" %(table_name)
 
-connection = MySQLdb.connect(user="root", passwd="root", host="localhost")
+connection = MySQLdb.connect(user="root", passwd="root", host="localhost", db="crawler")
 cursor = connection.cursor()
 cursor.execute(create_database_sql)
 cursor.execute(create_table_sql)
@@ -31,8 +31,7 @@ for link in links:
 
 
 for key in data:
-    cursor.execute("INSERT INTO crawler.google (description, url) VALUES (%s, %s);", ( key.encode("utf-8"), data[key].encode("utf-8"))) 
-
+    cursor.execute("INSERT INTO %s (description, url) VALUES (%s, %s);" %(table_name,  key, data[key])) 
 # Auto commit is turned off by default
 connection.commit()
 cursor.close()
