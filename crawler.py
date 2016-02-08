@@ -31,7 +31,7 @@ for link in links:
 
 
 for key in data:
-    cursor.execute("INSERT INTO %s (description, url) VALUES (%s, %s);" %(table_name,  key, data[key])) 
+    cursor.execute("INSERT INTO three (description, url) VALUES (%s, %s);", (key.encode("utf-8"), data[key].encode("utf-8"))) 
 # Auto commit is turned off by default
 connection.commit()
 cursor.close()
