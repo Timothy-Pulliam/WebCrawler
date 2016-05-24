@@ -1,7 +1,7 @@
 # WebCrawler
 A web crawler/scraper that when run through the terminal scrapes all links (HTML anchors) and saves them to a MySQL database. For example:
 
-   $ ./crawler http://www.reddit.com reddit
+    ./crawler http://www.reddit.com reddit
 
 Will scrape all links from www.reddit.com and place them inside a MySQL table named 'reddit' located 
 inside a database named 'crawler_db'.
